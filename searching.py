@@ -23,9 +23,28 @@ def read_data(file_name, field):
 
 def main():
     sequential_data = read_data(file_name="sequential.json", field="unordered_numbers")
-    print(sequential_data)
-    
+    print(linear_search(sequence=sequential_data, element= 0))
+   
+def linear_search(sequence, element):
+    """
+    Searches through sequence to get the element using naive algorithm 
+    input: 
+        sequence: sequence of elements
+        element: desired element of the sequence
+    output: lin_dict (dict): dictionary containing keys: index and count
+    """
+    count = 0
+    lin_dict = dict()
+    idx_list = list()
 
+    for idx, item in enumerate(sequence):
+        if item == element:
+            count += 1   
+            idx_list.append(idx)
+
+    lin_dict = {"index":idx_list, "count": count}
+        
+    return lin_dict
 
 if __name__ == '__main__':
     main()
