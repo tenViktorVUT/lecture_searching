@@ -21,9 +21,6 @@ def read_data(file_name, field):
                 continue
         return None
 
-def main():
-    sequential_data = read_data(file_name="sequential.json", field="unordered_numbers")
-    print(linear_search(sequence=sequential_data, element= 0))
    
 def linear_search(sequence, element):
     """
@@ -45,6 +42,43 @@ def linear_search(sequence, element):
     lin_dict = {"index":idx_list, "count": count}
         
     return lin_dict
+
+
+def pattern_search(sequence, pattern):
+    """
+    search using pattern
+    in: 
+        sequence: analyzed sequence
+        pattern: pattern
+    out: idx_set: (set): set of indices
+    """
+    plen = len(pattern)
+    status = False
+    idx_set = set()
+
+    try:
+        while status == False:
+            for idx, item in enumerate(sequence):
+                if (idx+len(pattern)) == len(sequence):
+                    status = True
+                else:
+                    if sequence[idx:idx+len(pattern)] == pattern:
+                        idx_set.add(idx)
+                    else:
+                        continue
+        return idx_set
+
+    except IndexError:
+        print("Your pattern is not in the sequence")
+        return None
+
+
+def main():
+    # sequential_data = read_data(file_name="sequential.json", field="unordered_numbers")
+    # print(linear_search(sequence=sequential_data, element= 0))
+    sequential_data = read_data(file_name="sequential.json", field="dna_sequence")
+    print(pattern_search(sequence=sequential_data, pattern="GTG"))
+
 
 if __name__ == '__main__':
     main()
