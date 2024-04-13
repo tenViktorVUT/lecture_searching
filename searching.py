@@ -52,7 +52,6 @@ def pattern_search(sequence, pattern):
         pattern: pattern
     out: idx_set: (set): set of indices
     """
-    plen = len(pattern)
     status = False
     idx_set = set()
 
@@ -78,12 +77,62 @@ def pattern_search(sequence, pattern):
         return None
 
 
+def binary_search(numlist, num):
+    """
+    searches through numlist looking for num using binary search
+    input:  numlist(list): ordered list of numbers
+            num(int): number we will be looking for
+    output: index(int): index of the number
+    """
+
+    status = False 
+    num_idx = len(numlist)
+
+    # debugging
+    # counter = 0
+
+    while status == False:
+        index = int(len(numlist)/2)+(len(numlist)%2)
+        # print(index)
+        
+        # if counter == 5:
+            # break
+
+        if num == numlist[0]:
+            if index == int(num_idx/2)+(num_idx%2):
+                num_idx = 0
+            status = True
+
+        else:
+            if len(numlist) == 1:
+                return None
+            if num > numlist[index]:
+                numlist = numlist[index+1:]
+                if len(numlist) == 1:
+                    num_idx = index + 1
+                else:
+                    # print(int(len(numlist[index+1:])/2)+(len(numlist[index+1:])%2))
+                    num_idx = index + (int(len(numlist[index+1:])/2)+(len(numlist[index+1:])%2))
+            else:
+                if len(numlist) == 1:
+                    num_idx = index - 1
+                else:
+                    numlist = numlist[:index-1]
+                    # print(int(len(numlist[index+1:])/2)+(len(numlist[index+1:])%2))
+                    num_idx = index - (int(len(numlist[:index-1])/2)+(len(numlist[:index-1])%2))
+            # counter += 1
+    
+    return num_idx
+
 def main():
     sequential_data = read_data(file_name="sequential.json", field="unordered_numbers")
     print(linear_search(sequence=sequential_data, element= 0))
     sequential_data = read_data(file_name="sequential.json", field="dna_sequence")
     print(pattern_search(sequence=sequential_data, pattern="GTG"))
+    sequential_data = read_data(file_name="sequential.json", field="ordered_numbers")
+    print(binary_search(numlist= sequential_data, num= -1))
 
 
 if __name__ == '__main__':
     main()
+    
