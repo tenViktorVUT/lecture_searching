@@ -56,17 +56,22 @@ def pattern_search(sequence, pattern):
     status = False
     idx_set = set()
 
+
     try:
         while status == False:
             for idx, item in enumerate(sequence):
-                if (idx+len(pattern)) == len(sequence):
-                    status = True
-                else:
-                    if sequence[idx:idx+len(pattern)] == pattern:
-                        idx_set.add(idx)
+                if item == pattern[0]:
+                    if (idx+len(pattern)) == len(sequence):
+                        status = True
                     else:
-                        continue
+                        if sequence[idx:idx+len(pattern)] == pattern:
+                            idx_set.add(idx)
+                        else:
+                            continue
+                else:
+                    continue
         return idx_set
+
 
     except IndexError:
         print("Your pattern is not in the sequence")
@@ -74,8 +79,8 @@ def pattern_search(sequence, pattern):
 
 
 def main():
-    # sequential_data = read_data(file_name="sequential.json", field="unordered_numbers")
-    # print(linear_search(sequence=sequential_data, element= 0))
+    sequential_data = read_data(file_name="sequential.json", field="unordered_numbers")
+    print(linear_search(sequence=sequential_data, element= 0))
     sequential_data = read_data(file_name="sequential.json", field="dna_sequence")
     print(pattern_search(sequence=sequential_data, pattern="GTG"))
 
